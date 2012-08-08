@@ -68,7 +68,7 @@
     <tr>
       <th>Repository:</td>
       <td>
-        <% if (gh) { %><a href="<%= gh %>"><% } %>
+        <% if (gh) { %><a id="github" href="<%= gh %>"><% } %>
         <%= package.repository.url %><% if (gh) { %></a><% } %>
         (<%= package.repository.type %>)
       </td>
@@ -160,4 +160,25 @@
     </div>
   </div>
 </div>
+<style>
+  span.gitinfo {margin-right: 5px}
+</style>
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+  var github = $('#github').attr('href')
+  $.ajax(
+    { dataType: 'json'
+    , url: github.replace('github.com/', 'api.github.com/repos/')
+    , success: function (doc) {
+      var h = '<tr><th>GitHub:</th><td>'
+      h += '<span class="gitinfo">forks: '+doc.forks+'</span>'
+      h += '<span class="gitinfo">watchers: '+doc.watchers+'</span><br>'
+      h += '<span class="gitinfo">last commit: '+doc.pushed_at+'</span>'
+      h += '</td></tr>'
+      $('#github').parent().parent().after(h)
+    }
+    , error: function (e) {console.log(e)}
+    }
+  )
+</script>
 <%- include('footer.ejs', locals) %>
