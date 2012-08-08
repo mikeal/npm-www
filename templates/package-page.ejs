@@ -170,7 +170,6 @@
     { dataType: 'json'
     , url: github.replace('github.com/', 'api.github.com/repos/')
     , success: function (doc) {
-      console.log(doc)
       var h = '<tr><th>GitHub:</th><td>'
       h += '<div class="gitinfo">forks: <a href="'+github+'/network'+'">'+doc.forks+'</a></div>'
       h += '<div class="gitinfo">watchers: <a href="'+github+'/stargazers'+'">'+doc.watchers+'</a></div>'
