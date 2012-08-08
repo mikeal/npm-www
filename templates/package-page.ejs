@@ -170,10 +170,11 @@
     { dataType: 'json'
     , url: github.replace('github.com/', 'api.github.com/repos/')
     , success: function (doc) {
+      console.log(doc)
       var h = '<tr><th>GitHub:</th><td>'
-      h += '<span class="gitinfo">forks: '+doc.forks+'</span>'
-      h += '<span class="gitinfo">watchers: '+doc.watchers+'</span><br>'
-      h += '<span class="gitinfo">last commit: '+doc.pushed_at+'</span>'
+      h += '<div class="gitinfo">forks: <a href="'+github+'/network'+'">'+doc.forks+'</a></div>'
+      h += '<div class="gitinfo">watchers: <a href="'+github+'/stargazers'+'">'+doc.watchers+'</a></div>'
+      h += '<div class="gitinfo">last commit: <a href="'+github+'/commit/master'+'">'+(new Date(doc.pushed_at)).toDateString()+'</a></div>'
       h += '</td></tr>'
       $('#github').parent().parent().after(h)
     }
